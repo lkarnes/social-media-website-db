@@ -1,16 +1,10 @@
 const db = require('../data/dbConfig.js');
-module.exports = {
-    getAll,
-    getById,
-    getByName,
-    add,
-    remove,
-    update
-}
+
 
 const getAll = (userId) => {
- return db('friends').where('user_id', userId);
+ return db('friends').where('user_id', userId).select('friend_id', 'status');
 }
+
 const getById = (id) => {
     return db('friends').where('friend_id', id);
 }
@@ -25,4 +19,12 @@ const remove = (user_id, friend_id) => {
 }
 const update = (body) => {
     return db('friends').where({user_id: body.user_id, friend_id: body.friend_id}).update(body);
+}
+module.exports = {
+    getAll,
+    getById,
+    getByName,
+    add,
+    remove,
+    update
 }
