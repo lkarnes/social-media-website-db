@@ -2,7 +2,8 @@ const db = require('../data/dbConfig.js');
 
 
 const getAll = (userId) => {
- return db('friends').where('user_id', userId).select('friend_id', 'status');
+    return db('friends').where('user_id', userId).select('friend_id', 'status');
+
 }
 
 const getById = (id) => {
