@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const userRouter = require('./routers/user-router');
 const friendRouter = require('./routers/friend-router');
+const postRouter = require('./routers/post-router');
 
 server.use(express.json());
 server.use(helmet());
@@ -17,4 +18,5 @@ server.get('/', (req,res)=> {
 })
 server.use('/api/', userRouter)
 server.use('/api/friends/', friendRouter)
+server.use('/api/posts/', postRouter)
 module.exports = server;

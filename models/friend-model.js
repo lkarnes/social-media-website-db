@@ -5,7 +5,9 @@ const getAll = (userId) => {
     return db('friends').where('user_id', userId).select('friend_id', 'status');
 
 }
-
+const getAllByStatus = (id, status) => {
+    return db('friends').where({user_id: id, status: status})
+}
 const getById = (id) => {
     return db('friends').where('friend_id', id);
 }
@@ -23,6 +25,7 @@ const update = (body) => {
 }
 module.exports = {
     getAll,
+    getAllByStatus,
     getById,
     getByName,
     add,

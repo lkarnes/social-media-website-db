@@ -2,8 +2,6 @@ const router = require('express').Router();
 const friendDb = require('../models/friend-model');
 const userDb = require('../models/user-model');
 
-
-
 router.get('/all/:id', (req,res)=>{
     const id = req.params.id;
     friendDb.getAll(id).then(friends => {

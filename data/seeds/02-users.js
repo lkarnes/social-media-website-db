@@ -6,26 +6,40 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex('users').insert([
         {
-          username: "testing1",
-          email: "snowyhills122@gmail.com",
+          username: "lk404",
+          email: "404notfound@gmail.com",
           password: "password",
-          first_name: "Johnny",	
-          last_name: "Appleseed"
+          first_name: "Cryptic",	
+          last_name: "Enemy"
+        },
+        {
+          username: "waterboard12",
+          email: "penguin0003@gmail.com",
+          password: "password",
+          first_name: "John",	
+          last_name: "Applea"
+        },
+        {
+          username: "AlliBaba",
+          email: "wakeme@gmail.com",
+          password: "password",
+          first_name: "Allison",	
+          last_name: "Whitesmoke"
+        },
+        {
+          username: "Ben10",
+          email: "letmebreathe@gmail.com",
+          password: "password",
+          first_name: "Ben",	
+          last_name: "Melons"
       },
       {
-        username: "testing3",
-        email: "snowyhills1221@gmail.com",
+        username: "Logger17",
+        email: "uponthehill@gmail.com",
         password: "password",
-        first_name: "Johnny",	
-        last_name: "Appleseed"
-    },
-    {
-      username: "testing2",
-      email: "snowyhills1222@gmail.com",
-      password: "password",
-      first_name: "Johnny",	
-      last_name: "Appleseed"
-  }
+        first_name: "Logan",	
+        last_name: "Fraiser"
+      }
       ]);
     });
 };

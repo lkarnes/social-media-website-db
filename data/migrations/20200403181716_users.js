@@ -8,7 +8,7 @@ exports.up = function(knex) {
       user.string('first_name', 124).notNullable();
       user.string('last_name', 124).notNullable();
       user.string('image');
-      user.timestamp('created_at').defaultTo(knex.fn.now());
+      user.timestamps();
   })
   .createTable('friends', friend=> {
       friend.integer('friend_id').unsigned().notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
@@ -21,9 +21,9 @@ exports.up = function(knex) {
       post.string('header', 40);
       post.string('body', 400).notNullable();
       post.string('status').notNullable();
-      post.timestamp('created_at').defaultTo(knex.fn.now());
+      post.string('created_at').defaultTo(Date());
       post.integer('poster_id').unsigned().notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
-      post.binary('image');
+      post.string('image');
       post.string('color');
       post.string('background');
       
