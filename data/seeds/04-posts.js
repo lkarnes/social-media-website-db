@@ -25,6 +25,17 @@ exports.seed = function(knex) {
         {type: 'text', header: 'console.log("oh my")', body: 'oWo', status: 'public', poster_id: 3, color: '', background: ''},
         {type: 'text', header: 'like and comment your thoughts', body: 'moo', status: 'public', poster_id: 2, color: '', background: ''},
         {type: 'text', header: 'tester', body: 'Went to the movies yesterday', status: 'private', poster_id: 2, color: '', background: ''},
+        {
+          "type": "text",
+          "header": "tester",
+          "body": "Do you remember what color that red truck parked on the hill was? its totally slipped my mind! thats totally crazy!",
+          "status": "public",
+          "created_at": "Sun May 10 2020 15:54:04 GMT-0700 (Pacific Daylight Time)",
+          "poster_id": 2,
+          "image": null,
+          "color": "blue",
+          "background": "red"
+      }
       ]);
     });
 };

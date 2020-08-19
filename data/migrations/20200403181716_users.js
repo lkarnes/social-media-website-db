@@ -26,6 +26,7 @@ exports.up = function(knex) {
       post.string('image');
       post.string('color');
       post.string('background');
+      post.integer('likes').defaultTo(0);
       
 
   })
