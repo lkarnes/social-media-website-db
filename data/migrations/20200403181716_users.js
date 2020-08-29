@@ -21,7 +21,7 @@ exports.up = function(knex) {
       post.string('header', 40);
       post.string('body', 400).notNullable();
       post.string('status').notNullable();
-      post.string('created_at').defaultTo(Date());
+      post.string('created_at');
       post.integer('poster_id').unsigned().notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
       post.string('image');
       post.string('color');

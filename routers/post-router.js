@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const postDb = require('../models/post-model');
 const friendDb = require('../models/friend-model');
+const { response } = require('express');
 
 router.get('/all/:id', (req, res) => {
     const id = req.params.id;
@@ -36,25 +37,27 @@ router.get('/all/:status/:id', async(req,res)=> {
     let postArr = [];
     let friends = await friendDb.getAllByStatus(id, status)
     for(let i = 0; i < friends.length; i++){
-        console.log(i)
         let posts = await postDb.grabPosts(friends[i].friend_id)
         let push = await posts.forEach(post => postArr.push(post))
-            console.log(postArr)
     }
         res.status(200).json(postArr)
 })
 
-router.get('/all/:limit/:id', (req, res)=> {
+router.get('/all/limited/:limit/:id', (req, res)=> {
     const {limit, id} = req.params;
-    let count = 0;
+    var date = new Date()
+    var response = []
+    date.setDate(date.getDate()-1)
+    let postArr = [];
     friendDb.getAll(id).then(friends => {
-        friends.map(friend => {
-            postDb.grabPosts(friend.friend_id).then(response => {
-
-            })
+        friends = friends.map(friend=>{
+            postDb.grabPosts(friend.friend_id).then(post => {
+                friend.post = post
+                console.log(friend)
+            }).catch(err => res.send(err))
         })
-    })
-
+        res.status(201).json(friends)
+    }).catch(err => res.send(err))
 })
 
 

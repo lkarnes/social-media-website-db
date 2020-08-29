@@ -3,6 +3,20 @@ const bcrypt = require('bcryptjs');
 const userDb = require('../models/user-model');
 const parser = require('../image-storage/cloudinary');
 
+router.post('/login', (req,res)=>{
+    const {username, password} = req.body;
+    userDb.get({username}).then(user => {
+        if(user && bcrypt.compareSync(password, user.password)){
+            const token = userDb.genToken(user);
+            res.status(200).json({token: token, data: user})
+        }else{
+            res.status(404).json({message: 'username or password does not exist'})
+        }
+    }).catch(err => {
+        res.status(500).json(err)
+    })
+})
+
 router.post('/register',parser.single("image"), (req,res)=> {
     const body = req.body;
     if(req.file){
@@ -13,21 +27,6 @@ router.post('/register',parser.single("image"), (req,res)=> {
     const token = userDb.genToken(body);
     userDb.add(body).then(user => {
         res.status(201).json({token: token, userData: body})
-    }).catch(err => {
-        res.status(500).json(err)
-    })
-})
-
-router.post('/login', (req,res)=> {
-    const {username, password} = req.body;
-    userDb.get({username}).then(user => {
-        console.log(password, user.password)
-        if(user && bcrypt.compareSync(password, user.password)){
-            const token = userDb.genToken(user);
-            res.status(400).json({token: token, data: user})
-        }else{
-            res.status(404).json({message: 'username or password does not exist'})
-        }
     }).catch(err => {
         res.status(500).json(err)
     })

@@ -4,8 +4,12 @@ const userDb = require('./user-model');
 
 
 const grabPosts = (id) => {
+    date = new Date()
+    date.setDate(date.getDate()+1)
+    console.log(date)
     return db('posts')
     .where('poster_id', id)
+    .where('created_at', '>', date)
     .orderBy('created_at')
 }
 
