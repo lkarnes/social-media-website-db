@@ -38,6 +38,7 @@ router.get('/all/:status/:id', async(req,res)=> {
     let friends = await friendDb.getAllByStatus(id, status)
     for(let i = 0; i < friends.length; i++){
         let posts = await postDb.grabPosts(friends[i].friend_id)
+<<<<<<< HEAD
         let push = await posts.forEach(post => postArr.push(post))
     }
         res.status(200).json(postArr)
@@ -58,6 +59,24 @@ router.get('/all/limited/:limit/:id', (req, res)=> {
         })
         res.status(201).json(friends)
     }).catch(err => res.send(err))
+=======
+        postArr = [...postArr, ...posts]
+    }
+        res.status(200).json(postArr)
+})
+//returns posts made by friends from the past set days
+router.get('/recent/:id/:days', async(req, res)=> {
+    const {id, days} = req.params;
+    let data = []
+    let friends = await friendDb.getAll(id)
+    for(i = 0; i < friends.length; i++){
+        let posts = await postDb.grabPosts(friends[i].friend_id, days)
+        data = [...data, ...posts]
+    }
+    data.length > 0 ? 
+    res.status(200).json(data):
+    res.status(404).json({'err': 'no data found'})
+>>>>>>> 0158ac5f21d77d82de6b29dce32b34b1143a877a
 })
 
 

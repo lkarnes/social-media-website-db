@@ -3,6 +3,7 @@ const friendDb = require('./friend-model');
 const userDb = require('./user-model');
 
 
+<<<<<<< HEAD
 const grabPosts = (id) => {
     date = new Date()
     date.setDate(date.getDate()+1)
@@ -10,6 +11,16 @@ const grabPosts = (id) => {
     return db('posts')
     .where('poster_id', id)
     .where('created_at', '>', date)
+=======
+const grabPosts = (id, days) => {
+    const dt = new Date()
+    dt.setDate(dt.getDate() - days);
+    console.log(dt)
+    return db('posts')
+    .where('poster_id', id)
+    .where('created_at', '>' , `${dt}`)
+    .where('status', 'public')
+>>>>>>> 0158ac5f21d77d82de6b29dce32b34b1143a877a
     .orderBy('created_at')
 }
 
