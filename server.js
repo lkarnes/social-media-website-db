@@ -9,7 +9,6 @@ const postRouter = require('./routers/post-router');
 
 server.use(express.json());
 server.use(helmet());
-server.use(cors());
 server.use((req,res, next) =>{
     req.headers('Access-Control-Allow-Origin', "http://localhost:3000/")
     next();
