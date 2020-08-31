@@ -9,6 +9,7 @@ const postRouter = require('./routers/post-router');
 
 server.use(express.json());
 server.use(helmet());
+server.use(cors());
 server.get('/', (req,res)=> {
     res.status(200).json({status: 'server running and ready for business!'}).catch(err => {
         res.status(500).json(err)
