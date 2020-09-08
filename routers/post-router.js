@@ -57,7 +57,7 @@ router.get('/recent/:id/:days', async(req, res)=> {
     const {id, days} = req.params;
     let data = []
     let friends = await friendDb.getAll(id)
-    for(i = 0; i < friends.length; i++){
+    for(let i = 0; i < friends.length; i++){
         let posts = await postDb.grabPosts(friends[i].friend_id, days)
         data = [...data, ...posts]
     }

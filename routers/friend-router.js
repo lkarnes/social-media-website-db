@@ -36,7 +36,7 @@ router.delete('/remove/:userId/:friendId', (req,res) => {
     }).catch(err => {res.status(500).json(err)})
 })
 
-router.post('/update', (req,res)=>{
+router.put('/update', (req,res)=>{
     const body = req.body
     friendDb.update(body).then(data => {
         res.status(201).json({message: 'status has been updated'})
