@@ -2,6 +2,7 @@ const express = require('express');
 const server = express();
 const helmet = require('helmet');
 const cors = require('cors');
+const restricted = require('./middleware/restricted-middleware')
 
 const userRouter = require('./routers/user-router');
 const friendRouter = require('./routers/friend-router');
@@ -16,6 +17,7 @@ server.get('/', (req,res)=> {
     })
 })
 server.use('/api/', userRouter)
+server.use(restricted)
 server.use('/api/friends/', friendRouter)
 server.use('/api/posts/', postRouter)
 module.exports = server;
