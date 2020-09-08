@@ -3,6 +3,16 @@ const postDb = require('../models/post-model');
 const friendDb = require('../models/friend-model');
 const { response } = require('express');
 
+router.post('/createpost', (req,res) => {
+    const body = req.body
+    let date = new Date()
+    date.setDate(date.getDate())
+    postDb.add(body).then(() =>{ 
+        res.status(201).json({message: 'post has been added'})
+    }).catch(err => {res.status(401).json({error:err})})
+})
+
+
 router.get('/all/:id', (req, res) => {
     const id = req.params.id;
     let response = [];
