@@ -2,13 +2,15 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const userDb = require('../models/user-model');
 const parser = require('../image-storage/cloudinary');
+const { restart } = require('nodemon');
+const { response } = require('express');
 
 router.post('/login', (req,res)=>{
     const {username, password} = req.body;
     userDb.get({username}).then(user => {
         if(user && bcrypt.compareSync(password, user.password)){
             const token = userDb.genToken(user);
-            res.status(200).json({token: token, data: user})
+            res.status(200).json({token: token, userData: user})
         }else{
             res.status(404).json({message: 'username or password does not exist'})
         }
@@ -46,6 +48,15 @@ router.put('/edit/:id', (req,res) => {
     })
 })
 
+//gets username from token and returns the usersdata
+router.get('/:username', (req,res)=> {
+    const username = req.params.username
+    userDb.get({username}).then(response => {
+        res.status(200).json(response)
+    }).catch(err => {
+        res.status(404).json({error: err, message: 'user not found'})
+    })
+})
 router.delete('/delete/:id', (req,res)=>{
     const id = req.params.id;
     userDb.remove(id).then(response => {
