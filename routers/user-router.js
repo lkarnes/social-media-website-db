@@ -47,9 +47,9 @@ router.put('/edit/:id', (req,res) => {
 })
 
 //gets username from token and returns the usersdata
-router.get('/getData/:username', (req,res)=> {
-    const username = req.params.username
-    userDb.get({username}).then(response => {
+router.get('/getData/:id', (req,res)=> {
+    const id = req.params.id
+    userDb.get({id}).then(response => {
         res.status(200).json(response)
     }).catch(err => {
         res.status(404).json({error: err, message: 'user not found'})
