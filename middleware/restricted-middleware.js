@@ -7,7 +7,7 @@ module.exports = (req,res,next) => {
     }else if(token){
         jwt.verify(token, process.env.SECRET, (err, decodedJwt) => {
             if(err) {
-                res.status(401).json({access:"token is not valid"})
+                res.status(401).json({access:"token is not valid", error: err})
             } else {
                 req.decodedJwt = decodedJwt; 
                 next();
