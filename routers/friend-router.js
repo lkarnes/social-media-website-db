@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const friendDb = require('../models/friend-model');
 const userDb = require('../models/user-model');
+const restricted = require('../middleware/restricted-middleware')
+
+router.use(restricted)
 
 router.get('/all/:id', (req,res)=>{
     const id = req.params.id;
