@@ -8,7 +8,8 @@ exports.up = function(knex) {
       user.string('first_name', 124).notNullable();
       user.string('last_name', 124).notNullable();
       user.string('image');
-      user.timestamps();
+      user.string('created_at')
+      user.string('updated_at')
   })
   .createTable('friends', friend=> {
       friend.integer('friend_id').unsigned().notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');

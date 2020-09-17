@@ -7,6 +7,7 @@ router.post('/createpost', (req,res) => {
     const body = req.body
     let date = new Date()
     date.setDate(date.getDate())
+    body['created_at'] = date
     postDb.add(body).then(() =>{ 
         res.status(201).json({message: 'post has been added'})
     }).catch(err => {res.status(401).json({error:err})})

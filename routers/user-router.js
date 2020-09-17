@@ -2,8 +2,6 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const userDb = require('../models/user-model');
 const parser = require('../image-storage/cloudinary');
-const { restart } = require('nodemon');
-const { response } = require('express');
 
 router.post('/login', (req,res)=>{
     const {username, password} = req.body;
@@ -49,7 +47,7 @@ router.put('/edit/:id', (req,res) => {
 })
 
 //gets username from token and returns the usersdata
-router.get('/:username', (req,res)=> {
+router.get('/getData/:username', (req,res)=> {
     const username = req.params.username
     userDb.get({username}).then(response => {
         res.status(200).json(response)
