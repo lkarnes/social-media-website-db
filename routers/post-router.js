@@ -31,7 +31,7 @@ router.get('/all/:id', (req, res) => {
 
 router.get('/:id', (req,res)=> {
     const id = req.params.id;
-    postDb.grabPosts(id).then(response => {
+    postDb.grabPosts(id,100).then(response => {
         res.status(200).json(response)
     }).catch(err => res.status(500).json(err))
 })
