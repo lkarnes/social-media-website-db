@@ -9,7 +9,7 @@ router.post('/createpost',parser.single("image"), (req,res) => {
     date.setDate(date.getDate())
     body['created_at'] = date
     postDb.add(body).then(() =>{ 
-        res.status(201).json({message: 'post has been added'})
+        res.status(201).json(body)
     }).catch(err => {res.status(401).json({error:err})})
 })
 
