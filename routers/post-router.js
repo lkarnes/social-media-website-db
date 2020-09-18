@@ -5,6 +5,9 @@ const parser = require('../image-storage/cloudinary');
 
 router.post('/createpost',parser.single("image"), (req,res) => {
     const body = req.body
+    if(req.file){
+        body.image=req.file.url
+    }
     let date = new Date()
     date.setDate(date.getDate())
     body['created_at'] = date
