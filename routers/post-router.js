@@ -15,6 +15,7 @@ router.post('/createpost',parser.single("image"), (req,res) => {
     postDb.add(body).then(() =>{ 
         res.status(201).json(body)
     }).catch(err => {res.status(401).json({error:err})})
+    res.status(404)
 })
 
 
