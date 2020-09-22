@@ -3,6 +3,20 @@ const bcrypt = require('bcryptjs');
 const userDb = require('../models/user-model');
 const parser = require('../image-storage/cloudinary');
 
+//cloudinary image conversion
+
+router.post('/convert-image', parser.single("image"), (req,res) => {
+    const body = {image: null}
+    if (req.file) {
+        body.image = req.file.url
+        console.log(body)
+        res.status(200).json(body)
+    }else{
+        res.status(500).json({error:'image not uploaded'})
+    }
+
+})
+
 router.post('/login', (req,res)=>{
     const {username, password} = req.body;
     userDb.get({username}).then(user => {
