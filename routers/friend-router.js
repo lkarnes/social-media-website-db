@@ -47,4 +47,13 @@ router.put('/update', (req,res)=>{
     }).catch(err => res.status(500).json(err))
 })
 
+router.get('/users/:characters', (req,res)=> {
+    var chars = req.params.characters
+    friendDb.getByLetters(chars).then(arr => {
+        res.status(200).json(arr)
+    }).catch(err =>{
+        res.status(500).json({err})
+    })
+})
+
 module.exports = router;
