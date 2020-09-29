@@ -23,6 +23,7 @@ router.get('/all/:id', (req, res) => {
     const id = req.params.id;
     let response = [];
     friendDb.getAll(id).then(friends => {
+        friends.push({friend_id: id})
         friends.forEach(friend => {
             postDb.grabPosts(friend.friend_id).then(data => {
                 data.map(item => {
