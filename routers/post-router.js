@@ -2,6 +2,7 @@ const router = require('express').Router();
 const postDb = require('../models/post-model');
 const friendDb = require('../models/friend-model');
 const parser = require('../image-storage/cloudinary');
+const { reset } = require('nodemon');
 
 
 router.post('/createpost',parser.single("image"), (req,res) => {
@@ -61,17 +62,25 @@ router.get('/all/:status/:id', async(req,res)=> {
 })
 //returns posts made by friends from the past set days
 router.get('/recent/:id/:days', async(req, res)=> {
-    const {id, days} = req.params;
     let data = []
-    let friends = await friendDb.getAll(id)
-    friends.push({'id':id})
-    for(let i = 0; i < friends.length; i++){
+    const {id, days} = req.params;
+    let friends =  await friendDb.getAll(id)
+    for(let i = 0; i < friends.length-1; i++){
         let posts = await postDb.grabPosts(friends[i].friend_id, days)
-        data = [...data, ...posts]
+        data.push(...posts)
     }
-    data.length > 0 ? 
-    res.status(200).json(data):
-    res.status(404).json({'err': 'no data found'})
+    if(data.length > 1) {
+        res.status(200).json(data)
+    }else{
+        res.status(404).json({error: 'no posts found' })
+    }
+
+    
+    // friends.push({'id':id})
+    
+    // data.length > 0 ? 
+    // res.status(200).json(data):
+    // res.status(404).json({'err': 'no data found'})
 })
 
 

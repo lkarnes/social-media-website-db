@@ -5,11 +5,11 @@ const userDb = require('./user-model');
 
 const grabPosts = (id, days) => {
     const dt = new Date()
+    
     dt.setDate(dt.getDate() - days);
     return db('posts')
     .where('poster_id', id)
     .where('created_at', '<' , `${dt}`)
-    .where('status', 'public')
     .orderBy('created_at')
 }
 
