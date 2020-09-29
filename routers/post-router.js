@@ -2,8 +2,6 @@ const router = require('express').Router();
 const postDb = require('../models/post-model');
 const friendDb = require('../models/friend-model');
 const parser = require('../image-storage/cloudinary');
-const { reset } = require('nodemon');
-
 
 router.post('/createpost',parser.single("image"), (req,res) => {
     const body = req.body
