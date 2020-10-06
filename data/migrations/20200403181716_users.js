@@ -14,7 +14,7 @@ exports.up = function(knex) {
   .createTable('friends', friend=> {
       friend.integer('friend_id').unsigned().notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
       friend.integer('user_id').unsigned().notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
-      friend.string('status').notNullable();
+      friend.string('friendship_status').notNullable();
   })
   .createTable('posts', post=> {
       post.increments();

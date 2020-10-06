@@ -48,11 +48,11 @@ router.get('/single/:id', (req,res)=>{
     }).catch(err => res.status(500).json(err))
 })
 //get all post from friends with specific relationship
-router.get('/all/:status/:id',(req,res)=> {
-    const {status, id} = req.params;
+router.get('/status/:status/:id/:offset',(req,res)=> {
+    const {status, id, offset} = req.params;
     friendDb.getAllByStatus(id, status).then(friends => {
         friends = friends[0].friends
-    postDb.grabPosts(friends, 100).then(posts => {
+    postDb.grabPosts(friends, offset).then(posts => {
         res.status(200).json(posts)
     }).catch(err => {
         res.status(400).json({message: 'trouble getting friends posts', error: {err}})
