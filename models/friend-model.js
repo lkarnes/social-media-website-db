@@ -5,7 +5,7 @@ const getAll = (userId) => {
     return db('friends').where('user_id', userId).select(db.raw('ARRAY_AGG(friend_id) as friends'));
 }
 const getAllByStatus = (id, status) => {
-    return db('friends').where({user_id: id, status: status})
+    return db('friends').where({user_id: id, status: status}).select(db.raw('ARRAY_AGG(friend_id) as friends'));
 }
 const getById = (id) => {
     return db('friends').where('friend_id', id);

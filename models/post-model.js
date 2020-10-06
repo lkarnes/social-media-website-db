@@ -4,13 +4,10 @@ const userDb = require('./user-model');
 const knexfile = require('../knexfile');
 
 
-const grabPosts = (friends, days) => {
-    const dt = new Date()
-    
-    dt.setDate(dt.getDate() - days);
+const grabPosts = (friends, offset = 1) => {
     return db('friends').join('posts', function(){
         this.on('friends.friend_id', '=', 'posts.poster_id').onIn('posts.poster_id', friends)
-    }).where('created_at','>',dt)
+    }).orderBy('created_at').limit('15').offset(1)
 }
 const getFriendsPost = (friends)  => {
     return db('friends').join('posts', function(){
