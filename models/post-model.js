@@ -1,18 +1,22 @@
 const db = require('../data/dbConfig');
 const friendDb = require('./friend-model');
 const userDb = require('./user-model');
+const knexfile = require('../knexfile');
 
 
-const grabPosts = (id, days) => {
+const grabPosts = (friends, days) => {
     const dt = new Date()
     
     dt.setDate(dt.getDate() - days);
-    return db('posts')
-    .where('poster_id', id)
-    .where('created_at', '<' , `${dt}`)
-    .orderBy('created_at')
+    return db('friends').join('posts', function(){
+        this.on('friends.friend_id', '=', 'posts.poster_id').onIn('posts.poster_id', friends)
+    }).where('created_at','>',dt)
 }
-
+const getFriendsPost = (friends)  => {
+    return db('friends').join('posts', function(){
+        this.on('friends.friend_id', '=', 'posts.poster_id').onIn('posts.poster_id', friends)
+    })
+}
 const getPostById = (id) => {
     return db('posts').where('id',id)
 }
@@ -30,6 +34,7 @@ const remove = (id) => {
 
 module.exports = {
     grabPosts,
+    getFriendsPost,
     getPostById,
     add,
     edit,

@@ -2,8 +2,7 @@ const db = require('../data/dbConfig.js');
 
 
 const getAll = (userId) => {
-    return db('friends').where('user_id', userId).select('friend_id', 'status');
-
+    return db('friends').where('user_id', userId).select(db.raw('ARRAY_AGG(friend_id) as friends'));
 }
 const getAllByStatus = (id, status) => {
     return db('friends').where({user_id: id, status: status})
