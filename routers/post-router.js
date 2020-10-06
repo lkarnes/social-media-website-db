@@ -2,6 +2,8 @@ const router = require('express').Router();
 const postDb = require('../models/post-model');
 const friendDb = require('../models/friend-model');
 const parser = require('../image-storage/cloudinary');
+const { post } = require('./friend-router');
+const { grabPosts } = require('../models/post-model');
 
 router.post('/createpost',parser.single("image"), (req,res) => {
     const body = req.body
@@ -20,18 +22,12 @@ router.post('/createpost',parser.single("image"), (req,res) => {
 
 router.get('/all/:id', (req, res) => {
     const id = req.params.id;
-    let response = [];
     friendDb.getAll(id).then(friends => {
-        friends.push({friend_id: id})
-        friends.forEach(friend => {
-            postDb.grabPosts(friend.friend_id).then(data => {
-                data.map(item => {
-                    response.push(item)
-                }) 
-            }).catch(err => res.status(500).json({err, message: 'error getting the posts'}))
-        })
+        friends = friends[0].friends
+        postDb.getFriendsPost(friends).then(posts => {
+                res.status(200).json(posts)
+            })
     }).catch(err => res.status(500).json({err, message: 'error getting the friends'}))
-    setTimeout(function(){ res.status(200).json(response)}, 200)
 })
 
 router.get('/:id', (req,res)=> {
@@ -59,26 +55,15 @@ router.get('/all/:status/:id', async(req,res)=> {
         res.status(200).json(postArr)
 })
 //returns posts made by friends from the past set days
-router.get('/recent/:id/:days', async(req, res)=> {
-    let data = []
-    const {id, days} = req.params;
-    let friends =  await friendDb.getAll(id)
-    for(let i = 0; i < friends.length-1; i++){
-        let posts = await postDb.grabPosts(friends[i].friend_id, days)
-        data.push(...posts)
-    }
-    if(data.length > 1) {
-        res.status(200).json(data)
-    }else{
-        res.status(404).json({error: 'no posts found' })
-    }
+router.get('/recent/:id/:days', (req, res)=> {
 
-    
-    // friends.push({'id':id})
-    
-    // data.length > 0 ? 
-    // res.status(200).json(data):
-    // res.status(404).json({'err': 'no data found'})
+    const {id, days} = req.params;
+    friendDb.getAll(id).then(friends => {
+        friends = friends[0].friends
+        grabPosts(friends, days).then(posts => {
+            res.status(200).json(posts)
+        })
+    })
 })
 
 
