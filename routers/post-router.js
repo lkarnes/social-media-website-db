@@ -55,10 +55,10 @@ router.get('/status/:status/:id/:offset',(req,res)=> {
     postDb.grabPosts(friends, offset).then(posts => {
         res.status(200).json(posts)
     }).catch(err => {
-        res.status(400).json({message: 'trouble getting friends posts', error: {err}})
+        res.status(400).json({message: 'trouble getting friends posts', err})
     })
     }).catch(err =>{
-        res.status(500).json({message: 'trouble getting friends', error: {err}})
+        res.status(500).json({message: 'trouble getting friends', err})
     })
 })
 //returns posts made by friends from the past set days
