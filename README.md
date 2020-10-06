@@ -6,6 +6,7 @@ this is the backend to go along with social-1 check out the repo for that here -
 
 # routes:
 ## posts:
+the offset property should be made in increments of 15
 #### POST api/posts/createpost
 creates a post under the users account
 #### GET api/posts/all/:id
@@ -14,9 +15,9 @@ gets all the posts for the users friends
 gets the posts created by that user
 #### GET api/posts/single/:id
 gets a single post by id
-#### GET api/posts/all/:status/:id
+#### GET api/posts/status/:status/:id/:offset
 gets all friends posts based off of their relationship
-#### GET api/posts/recent/:id/:days
+#### GET api/posts/recent/:id/:offset
 gets post from the past specified amount of days
 ## friends:
 ### GET /api/friends/all/:id
