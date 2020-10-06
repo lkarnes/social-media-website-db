@@ -24,6 +24,7 @@ router.get('/all/:id', (req, res) => {
     const id = req.params.id;
     friendDb.getAll(id).then(friends => {
         friends = friends[0].friends
+        friends.push(id)
         postDb.getFriendsPost(friends).then(posts => {
                 res.status(200).json(posts)
             })
@@ -56,12 +57,15 @@ router.get('/all/:status/:id', async(req,res)=> {
 })
 //returns posts made by friends from the past set days
 router.get('/recent/:id/:days', (req, res)=> {
-
     const {id, days} = req.params;
     friendDb.getAll(id).then(friends => {
         friends = friends[0].friends
+        friends.push(id)
+        c
         grabPosts(friends, days).then(posts => {
             res.status(200).json(posts)
+        }).catch(err => {
+            res.status(404).json({err})
         })
     })
 })
