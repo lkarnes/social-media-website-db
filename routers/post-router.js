@@ -52,6 +52,7 @@ router.get('/status/:status/:id/:offset',(req,res)=> {
     const {status, id, offset} = req.params;
     friendDb.getAllByStatus(id, status).then(friends => {
         friends = friends[0].friends
+        friends.push(id)
     postDb.grabPosts(friends, offset).then(posts => {
         res.status(200).json(posts)
     }).catch(err => {

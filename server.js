@@ -7,6 +7,7 @@ const restricted = require('./middleware/restricted-middleware')
 const userRouter = require('./routers/user-router');
 const friendRouter = require('./routers/friend-router');
 const postRouter = require('./routers/post-router');
+const likeRouter = require('./routers/like-router')
 
 server.use(express.json());
 server.use(helmet());
@@ -20,4 +21,5 @@ server.use('/api/', userRouter)
 server.use(restricted)
 server.use('/api/friends/', friendRouter)
 server.use('/api/posts/', postRouter)
+server.use('/api/', likeRouter)
 module.exports = server;

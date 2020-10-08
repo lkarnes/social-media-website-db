@@ -1,7 +1,5 @@
 const db = require('../data/dbConfig');
-const friendDb = require('./friend-model');
-const userDb = require('./user-model');
-const knexfile = require('../knexfile');
+
 
 
 const grabPosts = (friends, offset = 0) => {
@@ -30,11 +28,20 @@ const remove = (id) => {
     return db('posts').where({id}).del()
 }
 
+const like = (id) => {
+    return db('posts').where({id}).increment('likes', 1)
+}
+const unlike = (id) => {
+    return db('posts').where({id}).andWhere('likes', '>', '0').decrement('likes', 1)
+}
+
 module.exports = {
     grabPosts,
     getFriendsPost,
     getPostById,
     add,
     edit,
-    remove
+    remove, 
+    like,
+    unlike
 }
