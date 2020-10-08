@@ -33,9 +33,10 @@ router.get('/all/:id', (req, res) => {
 })
 
 //get all post from user
-router.get('/:id', (req,res)=> {
-    const id = req.params.id;
-    postDb.grabPosts(id).then(response => {
+router.get('/:id/:offset', (req,res)=> {
+    const {id, offset} = req.params;
+    console.log(id)
+    postDb.grabUserPosts(id, offset).then(response => {
         res.status(200).json(response)
     }).catch(err => res.status(500).json(err))
 })
@@ -68,7 +69,7 @@ router.get('/recent/:id/:offset', (req, res)=> {
     friendDb.getAll(id).then(friends => {
         friends = friends[0].friends
         friends.push(id)
-        grabPosts(friends, offset).then(posts => {
+        postDb.grabPosts(friends, offset).then(posts => {
             res.status(200).json(posts)
         }).catch(err => {
             res.status(400).json({message: 'trouble getting friends posts', error: {err}})
