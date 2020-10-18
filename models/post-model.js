@@ -1,7 +1,5 @@
 const db = require('../data/dbConfig');
 
-
-
 const grabPosts = (friends, offset = 0) => {
     return db('posts').whereIn('poster_id', friends).limit(15).offset(offset)
 }

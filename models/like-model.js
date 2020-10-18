@@ -1,6 +1,8 @@
 const db = require('../data/dbConfig');
 
 const like = (body) => {
+    if(db('likes')){}
+
     return db('likes').insert(body);
 }
 const unlikePost = (liker_id, post_id) => {
