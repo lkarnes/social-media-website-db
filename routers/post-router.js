@@ -22,8 +22,7 @@ router.post('/createpost',parser.single("image"), (req,res) => {
 router.get('/all/:id', (req, res) => {
     const id = req.params.id;
     friendDb.getAll(id).then(friends => {
-        friends = friends[0].friends
-        friends.push(id)
+        friends.push({friend_id: id})
         postDb.getFriendsPost(friends).then(posts => {
                 res.status(200).json(posts)
             }).catch(err => res.status(400).json({message: 'trouble getting friends posts', error: {err}}))
@@ -35,7 +34,6 @@ router.get('/all/:id', (req, res) => {
 //get all post from user
 router.get('/:id/:offset', (req,res)=> {
     const {id, offset} = req.params;
-    console.log(id)
     postDb.grabUserPosts(id, offset).then(response => {
         res.status(200).json(response)
     }).catch(err => res.status(500).json(err))
@@ -52,8 +50,7 @@ router.get('/single/:id', (req,res)=>{
 router.get('/status/:status/:id/:offset',(req,res)=> {
     const {status, id, offset} = req.params;
     friendDb.getAllByStatus(id, status).then(friends => {
-        friends = friends[0].friends
-        friends.push(id)
+        friends.push({friend_id: id})
     postDb.grabPosts(friends, offset).then(posts => {
         res.status(200).json(posts)
     }).catch(err => {
@@ -67,9 +64,9 @@ router.get('/status/:status/:id/:offset',(req,res)=> {
 router.get('/recent/:id/:offset', (req, res)=> {
     const {id, offset} = req.params;
     friendDb.getAll(id).then(friends => {
-        friends = friends[0].friends
-        friends.push(id)
+        friends.push({friend_id: id})
         postDb.grabPosts(friends, offset).then(posts => {
+
             res.status(200).json(posts)
         }).catch(err => {
             res.status(400).json({message: 'trouble getting friends posts', error: {err}})
