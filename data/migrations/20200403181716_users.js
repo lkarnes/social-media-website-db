@@ -8,8 +8,8 @@ exports.up = function(knex) {
       user.string('first_name', 124).notNullable();
       user.string('last_name', 124).notNullable();
       user.string('image');
-      user.string('created_at')
-      user.string('updated_at')
+      user.string('created_at');
+      user.string('updated_at');
   })
   .createTable('friends', friend=> {
       friend.integer('friend_id').unsigned().notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
@@ -41,7 +41,8 @@ exports.up = function(knex) {
       like.integer('post_id').unsigned().references('id').inTable('posts').onDelete('CASCADE').onUpdate('CASCADE');
       like.integer('comment_id').unsigned().references('id').inTable('comments').onDelete('CASCADE').onUpdate('CASCADE');
       like.integer('liker_id').unsigned().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
-  })
+      like.unique(['post_id', 'liker_id']);
+    })
 };
 
 exports.down = function(knex) {

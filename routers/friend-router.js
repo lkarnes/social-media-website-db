@@ -49,6 +49,7 @@ router.put('/update', (req,res)=>{
 
 router.get('/users/:characters', (req,res)=> {
     var chars = req.params.characters
+    console.log(chars)
     friendDb.getByLetters(chars).then(arr => {
         res.status(200).json(arr)
     }).catch(err =>{

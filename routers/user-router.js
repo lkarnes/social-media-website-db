@@ -18,8 +18,11 @@ router.post('/convert-image', parser.single("image"), (req,res) => {
 })
 
 router.post('/login', (req,res)=>{
+    console.log(req.body)
     const {username, password} = req.body;
+    
     userDb.get({username}).then(user => {
+        console.log('here')
         if(user && bcrypt.compareSync(password, user.password)){
             const token = userDb.genToken(user);
             res.status(200).json({token: token, userData: user})
