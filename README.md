@@ -42,4 +42,14 @@ removes the account
 ## Comments:
 ** in progrss **
 ## Likes:
+### GET /api/like/:liker_id/:post_id
+likes a post/comment
+### GET /api/likes/posts/:id
+gets all posts liked by a user
+### GET /api/likes/comments/:id
 ** in progrss **
+### DELETE /api/unlike/post/:liker_id/:post_id
+unlikes post
+### DELETE /api/unlike/comment/:liker_id/:post_id
+** in progrss **
+
