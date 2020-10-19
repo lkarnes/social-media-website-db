@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const likeDb = require('../models/like-model');
+const { like } = require('../models/post-model');
 const postDb = require('../models/post-model');
 
 router.get('/like/:liker_id/:post_id', (req,res) => {
@@ -29,15 +30,11 @@ router.delete('/unlike/post/:liker_id/:post_id', (req,res) => {
     
 })
 
-
-//commented out until comment route is added
-// router.get('/unlike/comment/:liker_id/:post_id', (req,res) => {
-//     const body = req.params
-//     commentDb.unlike(body.post_id).then(() => {
-//         likeDb.unlikeComment(body.liker_id, body.comment_id).then(() =>{
-//             res.status(202).json({message: 'comment has been liked!'})
-//         })
-//     })
-// })
+router.get('/likes/posts/:id', (req,res) => {
+    const id = req.params.id
+    likeDb.getLikedPosts(id).then(likes => {
+        res.status(200).json(likes)
+    }).catch(err => res.status(500).json({message: 'trouble getting users likes', error:{err}}))
+})
 
 module.exports = router;
