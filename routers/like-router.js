@@ -37,4 +37,4 @@ router.get('/likes/posts/:id', (req,res) => {
     }).catch(err => res.status(500).json({message: 'trouble getting users likes', error:{err}}))
 })
 
-module.exports = router;
+module.exports = router; 

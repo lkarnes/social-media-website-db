@@ -9,7 +9,7 @@ const genToken = (user) =>{
     }
     const secret = process.env.SECRET || 'secret';
     const options = {
-        expiresIn: '2d'
+        expiresIn: '20d'
     }
     return jwt.sign(payload, secret, options)
 }
