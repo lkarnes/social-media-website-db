@@ -49,8 +49,11 @@ router.post('/register',parser.single("image"), (req,res)=> {
     })
 })
 
-router.put('/edit/:id', (req,res) => {
+router.put('/edit/:id', parser.single("image"), (req,res) => {
     const body = req.body;
+    if(req.file){
+        body.image=req.file.url
+    }
     const id = req.params.id;
     userDb.edit(body, id).then(user => {
         userDb.get({id}).then(response => {
