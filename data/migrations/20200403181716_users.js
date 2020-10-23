@@ -28,8 +28,7 @@ exports.up = function(knex) {
       post.string('color');
       post.string('background');
       post.integer('likes').defaultTo(0);
-      
-
+      post.integer('comments').defaultTo(0);
   })
   .createTable('comments', com=> {
       com.increments();
