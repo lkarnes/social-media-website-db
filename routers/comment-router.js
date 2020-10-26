@@ -8,6 +8,12 @@ router.get('/:post_id', (req,res) => {
     })
 })
 
-
+router.post('/add', (req,res) => {
+    const body = req.body
+    console.log('hello')
+    comDb.addComment(body).then(response => {
+        res.status(201).json(response)
+    })
+})
 
 module.exports = router;
