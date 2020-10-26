@@ -31,6 +31,14 @@ const unlike = (id) => {
     return db('posts').where({id}).decrement('likes', 1)
 }
 
+const addComment = (id) => {
+    return db('posts').where(id).increment('comments', 1)
+}
+
+const removeComment = (id) => {
+    return db('posts').where(id).decrement('comments', 1)
+}
+
 module.exports = {
     grabPosts,
     grabUserPosts,
@@ -39,5 +47,7 @@ module.exports = {
     edit,
     remove, 
     like,
-    unlike
+    unlike,
+    addComment,
+    removeComment
 }
