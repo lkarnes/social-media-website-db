@@ -35,7 +35,7 @@ exports.up = function(knex) {
       com.string('body', 120);
       com.integer('post_id').unsigned().notNullable().references('id').inTable('posts').onDelete('CASCADE').onUpdate('CASCADE');
       com.integer('user_id').unsigned().notNullable().references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
-  })
+    })
   .createTable('likes', like=>{
       like.integer('post_id').unsigned().references('id').inTable('posts').onDelete('CASCADE').onUpdate('CASCADE');
       like.integer('comment_id').unsigned().references('id').inTable('comments').onDelete('CASCADE').onUpdate('CASCADE');

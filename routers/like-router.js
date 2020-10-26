@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const likeDb = require('../models/like-model');
-const { like } = require('../models/post-model');
 const postDb = require('../models/post-model');
 
 router.get('/like/:liker_id/:post_id', (req,res) => {
