@@ -32,11 +32,11 @@ const unlike = (id) => {
 }
 
 const addComment = (id) => {
-    return db('posts').where(id).increment('comments', 1)
+    return db('posts').where({id}).increment('comments', 1)
 }
 
 const removeComment = (id) => {
-    return db('posts').where(id).decrement('comments', 1)
+    return db('posts').where({id}).decrement('comments', 1)
 }
 
 module.exports = {
