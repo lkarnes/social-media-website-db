@@ -24,4 +24,5 @@ server.use('/api/friends/', friendRouter)
 server.use('/api/posts/', postRouter)
 server.use('/api/', likeRouter)
 server.use('/api/comments', commentRouter)
+
 module.exports = server;
