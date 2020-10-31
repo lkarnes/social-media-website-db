@@ -76,5 +76,10 @@ router.get('/recent/:id/:offset', (req, res)=> {
     })
 })
 
+router.delete('/remove/:id', (req,res)=> {
+    postDb.remove(req.params.id).then(() => {
+        res.status(204).json({message: 'post deleted'})
+    }).catch(err => {res.status(404).json({message: 'trouble deleting post'})})
+})
 
 module.exports = router;

@@ -3,7 +3,7 @@ exports.seed = function(knex) {
   // Deletes ALL existing entries
   return knex('posts').del()
     .then(function () {
-      date = new Date()
+      var date = new Date()
       date.setDate(date.getDate())
       // Inserts seed entries
       return knex('posts').insert([
