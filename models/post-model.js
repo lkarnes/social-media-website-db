@@ -4,10 +4,10 @@ const grabPosts = (friends, offset = 0) => {
     var ids = friends.map(friend => {
         return friend['friend_id']
     })
-    return db('posts').whereIn('poster_id', ids).limit(15).offset(offset)
+    return db('posts').whereIn('poster_id', ids).limit(15).offset(offset).orderBy('created_at')
 }
 const grabUserPosts = (id, offset = 0) => {
-    return db('posts').where('poster_id', id).limit(15).offset(offset)
+    return db('posts').where('poster_id', id).limit(15).offset(offset).orderBy('created_at')
 }
 const getPostById = (id) => {
     return db('posts').where('id',id)
