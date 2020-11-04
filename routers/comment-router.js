@@ -11,8 +11,8 @@ router.get('/:post_id', (req,res) => {
 router.post('/add', (req,res) => {
     const body = req.body
     comDb.addComment(body).then(response => {
-        postDb.addComment(body.post_id).then(response=> {
-            res.status(201).json({message: 'comment added!'})
+        postDb.addComment(body.post_id).then(()=> {
+            res.status(201).json(response[0])
         }).catch(err => {
             res.status(500).json({message: 'trouble incrementing/decrementing comments on post table', error: {err}})
         })
