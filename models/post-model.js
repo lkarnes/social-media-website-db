@@ -1,3 +1,4 @@
+const { returning } = require('../data/dbConfig');
 const db = require('../data/dbConfig');
 
 const grabPosts = (friends, offset = 0) => {
@@ -13,7 +14,7 @@ const getPostById = (id) => {
     return db('posts').where('id',id)
 }
 const add = (body) => {
-    return db('posts').insert(body)
+    return db('posts').returning('id').insert(body)
 }
 
 const edit = (id, body) => {

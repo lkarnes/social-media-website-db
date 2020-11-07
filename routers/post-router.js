@@ -12,10 +12,10 @@ router.post('/createpost',parser.single("image"), (req,res) => {
     let date = new Date()
     date.setDate(date.getDate())
     body['created_at'] = date
-    postDb.add(body).then(() =>{ 
+    postDb.add(body).then(response =>{ 
+        body['id'] = response[0]
         res.status(201).json(body)
-    }).catch(err => {res.status(401).json({error:err})})
-    res.status(404)
+    }).catch(err => {res.status(401).json(err)})
 })
 
 //get all friends posts
