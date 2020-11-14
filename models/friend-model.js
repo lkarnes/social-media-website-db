@@ -16,12 +16,15 @@ const getByName = (name) => {
 const getByLetters = (letters) => {
     var lastname = null
     var firstname = null
+    letters = letters.toLowerCase();
     if(letters.includes(' ')){
-        firstname = letters.split(' ')[0]
-        lastname = letters.split(' ')[1] 
-        return db('users').select('id','username', 'image', 'first_name', 'last_name').where('first_name',`${firstname}`).andWhere('last_name','like',`${lastname}%`).limit(10)
+        var firstname = letters.split(' ')[0];
+        firstname = firstname.toLowerCase();
+        var lastname = letters.split(' ')[1];
+        lastname = lastname.toLowerCase();
+        return db('users').select('id','username', 'image', 'first_name', 'last_name').whereRaw('lower(first_name) LIKE ?',`${firstname}%`).andWhereRaw('lower(last_name) LIKE ?',`${lastname}%`).limit(10)
     }else{
-        return db('users').where('first_name','like',`${letters}%`).orWhere('username', 'like', `${letters}%`).orWhere('last_name', 'like',`${letters}%`).limit(10)
+        return db('users').whereRaw('lower(first_name) LIKE ?',`${letters}%`).orWhereRaw('lower(username) LIKE ?',`${letters}` ).orWhereRaw('lower(last_name) LIKE ?',`${letters}%`).limit(10)
     }
     
 }
