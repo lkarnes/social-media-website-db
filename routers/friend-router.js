@@ -20,7 +20,12 @@ router.get('/:id', (req,res)=> {
             res.status(200).json(data)
         }).catch(err => res.status(500).json(err))
     })
-
+router.get('all/followers/:id', (req,res)=> {
+    const id = req.params.id;
+    friendDb.getAllFollowers(id).then(data => {
+        res.status(200).json(data)
+    })
+})
 router.post('/add', (req,res) => {
     const body = req.body;
     friendDb.add(body).then(data =>{

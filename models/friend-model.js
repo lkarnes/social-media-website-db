@@ -7,12 +7,13 @@ const getAll = (userId) => {
 const getAllByStatus = (user_id, friendship_status) => {
     return db('friends').select('friend_id', 'friendship_status').where({"friendship_status":friendship_status.toString(), "user_id":user_id});
 }
+const getAllFollowers = (userId) => {
+    return db('friends').where('friend_id', userId)
+}
 const getById = (id) => {
     return db('friends').where('friend_id', id);
 }
-const getByName = (name) => {
-    return db('users').where('name', name);
-}
+
 const getByLetters = (letters) => {
     var lastname = null
     var firstname = null
@@ -41,7 +42,7 @@ module.exports = {
     getAll,
     getAllByStatus,
     getById,
-    getByName,
+    getAllFollowers,
     getByLetters,
     add,
     remove,
