@@ -13,6 +13,12 @@ const getAllFollowers = (userId) => {
 const getById = (id) => {
     return db('friends').where('friend_id', id);
 }
+const getFollowCount = (id) => {
+    return db('friends').where('user_id', id).length
+}
+const getFollowerCount = (id) => {
+    return db('friends').where('friend_id', id).length
+}
 
 const getByLetters = (letters) => {
     var lastname = null
@@ -43,6 +49,8 @@ module.exports = {
     getAllByStatus,
     getById,
     getAllFollowers,
+    getFollowCount,
+    getFollowerCount,
     getByLetters,
     add,
     remove,
