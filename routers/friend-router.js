@@ -40,7 +40,7 @@ router.get('/follow-count/:id', (req,res) => {
     })
 })
 
-router.get('follower-count/:id', (req,res) => {
+router.get('/follower-count/:id', (req,res) => {
     const id = req.params.id;
     friendDb.getFollowerCount(id).then(count => {
         res.status(200).json({count})
