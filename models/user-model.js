@@ -15,7 +15,7 @@ const genToken = (user) =>{
 }
 
 const add = (user) => {
-    return db('users').insert(user);
+    return db('users').returning('id').insert(user);
 }
 const edit = (user, id)=> {
     return db('users').where({id}).update(user)

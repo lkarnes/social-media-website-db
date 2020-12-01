@@ -19,7 +19,7 @@ server.get('/', (req,res)=> {
     })
 })
 server.use('/api/', userRouter)
-// server.use(restricted)
+server.use(restricted)
 server.use('/api/friends/', friendRouter)
 server.use('/api/posts/', postRouter)
 server.use('/api/', likeRouter)

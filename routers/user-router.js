@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const userDb = require('../models/user-model');
 const parser = require('../image-storage/cloudinary');
+const friendDb = require('../models/friend-model');
 
 //cloudinary image conversion
 
@@ -43,7 +44,9 @@ router.post('/register',parser.single("image"), (req,res)=> {
     body.password = hash;
     const token = userDb.genToken(body);
     userDb.add(body).then(user => {
-        res.status(201).json({token: token, userData: body})
+        friendDb.add({user_id: user, friend_id: 10}).then(()=> {
+            res.status(201).json({token: token, userData: body})
+        }).catch(err => res.status(500).json({error: {err}, message: 'toruble adding company account to friends'})) 
     }).catch(err => {
         res.status(500).json(err)
     })
