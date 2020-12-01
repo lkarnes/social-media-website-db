@@ -41,9 +41,9 @@ router.post('/register',parser.single("image"), (req,res)=> {
     }
     const hash = bcrypt.hashSync(body.password, 12);
     body.password = hash;
-    const token = userDb.genToken(body);
     userDb.add(body).then(user => {
-
+        body['id'] = user[0]
+        const token = userDb.genToken(body);
         res.status(201).json({token: token, userData: body, id: user})
     }).catch(err => {
         res.status(500).json(err)
