@@ -45,7 +45,7 @@ router.post('/register',parser.single("image"), (req,res)=> {
     const token = userDb.genToken(body);
     userDb.add(body).then(user => {
         friendDb.add({user_id: user, friend_id: 10, friendship_status: 'low'}).then(()=> {
-            res.status(201).json({token: token, userData: body})
+            res.status(201).json({token: token, userData: {...body, id: user }})
         }).catch(err => res.status(500).json({error: {err}, message: 'toruble adding company account to friends'})) 
     }).catch(err => {
         res.status(500).json(err)
