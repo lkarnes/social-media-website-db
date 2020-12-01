@@ -44,7 +44,7 @@ router.post('/register',parser.single("image"), (req,res)=> {
     const token = userDb.genToken(body);
     userDb.add(body).then(user => {
 
-        res.status(201).json({token: token, userData: body})
+        res.status(201).json({token: token, userData: body, id: user})
     }).catch(err => {
         res.status(500).json(err)
     })
